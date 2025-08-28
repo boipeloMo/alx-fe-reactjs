@@ -1,32 +1,27 @@
-cat > App.jsx << 'EOF'
-import UserProfile from './components/UserProfile';
+import React from 'react';
+import { useState } from 'react';
 
-function App() {
+function Header() {
   return (
-    <div>
-      <UserProfile 
-        name="Alice" 
-        age="25" 
-        bio="Loves hiking and photography" 
-      />
-    </div>
+    <header>
+      <h1>My Favorite Cities</h1>
+    </header>
   );
 }
 
-function UserProfile(props) {
+function MainContent() {
   return (
-    <div style={{
-      border: '1px solid #e5e7eb',
-      borderRadius: '0.75rem',
-      padding: '1.5rem',
-      margin: '1rem',
-      backgroundColor: '#ffffff',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{props.name}</h2>
-      <p style={{ color: '#4b5563', marginBottom: '0.25rem' }}>Age: {props.age}</p>
-      <p style={{ fontStyle: 'italic', color: '#6b7280' }}>Bio: {props.bio}</p>
-    </div>
+    <main>
+      <p>I love to visit New York, Paris, and Tokyo.</p>
+    </main>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <p>© 2023 City Lovers</p>
+    </footer>
   );
 }
 
@@ -54,12 +49,10 @@ function App() {
         width: '100%',
         maxWidth: '400px'
       }}>
+        {/* The components are rendered here in the specified order */}
         <Header />
         <MainContent />
         <Footer />
-        
-        {/* Render the UserProfile component with props */}
-        <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
       </div>
       <div style={{
         backgroundColor: 'white',
@@ -104,10 +97,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-      
-    
