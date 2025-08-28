@@ -1,6 +1,5 @@
-import React from 'react';
+mport React from 'react';
 import { useState } from 'react';
-
 
 function Header() {
   return (
@@ -9,7 +8,6 @@ function Header() {
     </header>
   );
 }
-
 
 function MainContent() {
   return (
@@ -24,6 +22,23 @@ function Footer() {
     <footer>
       <p>© 2023 City Lovers</p>
     </footer>
+  );
+}
+
+function UserProfile(props) {
+  return (
+    <div style={{
+      border: '1px solid #e5e7eb',
+      borderRadius: '0.75rem',
+      padding: '1.5rem',
+      margin: '1rem',
+      backgroundColor: '#ffffff',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{props.name}</h2>
+      <p style={{ color: '#4b5563', marginBottom: '0.25rem' }}>Age: {props.age}</p>
+      <p style={{ fontStyle: 'italic', color: '#6b7280' }}>Bio: {props.bio}</p>
+    </div>
   );
 }
 
@@ -51,10 +66,12 @@ function App() {
         width: '100%',
         maxWidth: '400px'
       }}>
-     
         <Header />
         <MainContent />
         <Footer />
+        
+        {/* Render the UserProfile component with props */}
+        <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
       </div>
       <div style={{
         backgroundColor: 'white',
@@ -99,6 +116,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
