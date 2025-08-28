@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-
+import Header from './Header';
+import MainContent from './MainContent';
+import Footer from './Footer';
 function Header() {
   return (
     <header>
