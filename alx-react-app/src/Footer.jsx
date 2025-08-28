@@ -1,4 +1,3 @@
-cat > Footer.jsx << 'EOF'
 function Footer() {
   return (
     <footer>
@@ -6,7 +5,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;
-EOF
-
