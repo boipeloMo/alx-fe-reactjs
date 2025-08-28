@@ -1,27 +1,15 @@
-mport React from 'react';
-import { useState } from 'react';
+cat > App.jsx << 'EOF'
+import UserProfile from './components/UserProfile';
 
-function Header() {
+function App() {
   return (
-    <header>
-      <h1>My Favorite Cities</h1>
-    </header>
-  );
-}
-
-function MainContent() {
-  return (
-    <main>
-      <p>I love to visit New York, Paris, and Tokyo.</p>
-    </main>
-  );
-}
-
-function Footer() {
-  return (
-    <footer>
-      <p>© 2023 City Lovers</p>
-    </footer>
+    <div>
+      <UserProfile 
+        name="Alice" 
+        age="25" 
+        bio="Loves hiking and photography" 
+      />
+    </div>
   );
 }
 
