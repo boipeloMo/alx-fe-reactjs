@@ -1,3 +1,4 @@
+cat > Header.jsx << 'EOF'
 function Header() {
   return (
     <header>
@@ -5,3 +6,6 @@ function Header() {
     </header>
   );
 }
+
+export default Header;
+EOF
