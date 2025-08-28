@@ -1,4 +1,3 @@
-cat > MainContent.jsx << 'EOF'
 function MainContent() {
   return (
     <main>
@@ -6,7 +5,3 @@ function MainContent() {
     </main>
   );
 }
-
-export default MainContent;
-EOF
-
