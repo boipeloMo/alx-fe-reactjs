@@ -1,39 +1,32 @@
-const MainContent = () => {
-  const cities = ['London', 'Paris', 'Tokyo', 'New York', 'Sydney'];
+import React from 'react';
+
+const UserProfile = (props) => {
   return (
-    <main style={{
-      padding: '2rem',
-      backgroundColor: '#ecf0f1',
-      minHeight: '400px',
-      textAlign: 'center'
+    <div style={{ 
+      border: '1px solid #ccc', 
+      padding: '20px', 
+      margin: '20px auto', 
+      borderRadius: '10px', 
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      backgroundColor: '#f9f9f9',
+      maxWidth: '500px'
     }}>
-      <h2 style={{ color: '#2c3e50', marginBottom: '1.5rem' }}>Some of My Favorite Cities</h2>
-      <ul style={{
-        listStyle: 'none',
-        padding: 0,
-        margin: '0 auto',
-        maxWidth: '600px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
-      }}>
-        {cities.map((city, index) => (
-          <li key={index} style={{
-            backgroundColor: 'white',
-            border: '1px solid #bdc3c7',
-            borderRadius: '8px',
-            padding: '15px',
-            margin: '10px',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-            width: 'calc(50% - 20px)',
-            transition: 'transform 0.2s ease-in-out',
-          }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-             onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-            {city}
-          </li>
-        ))}
-      </ul>
-    </main>
+      <h2 style={{ 
+        color: '#3498db', 
+        fontSize: '1.8rem', 
+        marginBottom: '10px', 
+        textAlign: 'center'
+      }}>{props.name}</h2>
+      <p style={{ margin: '5px 0' }}>
+        Age: <span style={{ fontWeight: 'bold', color: '#e74c3c' }}>{props.age}</span>
+      </p>
+      <p style={{ margin: '5px 0', fontStyle: 'italic' }}>
+        Bio: {props.bio}
+      </p>
+    </div>
   );
 };
+
+export default UserProfile;
+
 
