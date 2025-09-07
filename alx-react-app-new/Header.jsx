@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Header = () => {
   return (
     <header style={{
@@ -11,3 +13,6 @@ const Header = () => {
     </header>
   );
 };
+
+export default Header;
+
