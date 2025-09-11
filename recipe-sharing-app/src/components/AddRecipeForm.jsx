@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import useRecipeStore from '../recipeStore';
+import { useRecipeStore } from '../recipeStore';
 
-function AddRecipeForm() {
+export function AddRecipeForm() {
   const addRecipe = useRecipeStore((state) => state.addRecipe);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -31,5 +31,4 @@ function AddRecipeForm() {
   );
 }
 
-export default AddRecipeForm;
 
