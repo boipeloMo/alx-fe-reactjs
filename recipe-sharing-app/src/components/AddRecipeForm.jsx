@@ -6,12 +6,12 @@ export function AddRecipeForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     addRecipe({ id: Date.now(), title, description });
     setTitle('');
     setDescription('');
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
