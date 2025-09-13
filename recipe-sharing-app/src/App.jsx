@@ -1,19 +1,30 @@
-import React from 'react';
-import RecipeList from './components/RecipeList';
-import AddRecipeForm from './components/AddRecipeForm';
-import './App.css'; // Optional: for styling
+import { Routes, Route, Link } from 'react-router-dom';
+import { RecipeList } from './components/RecipeList';
+import { AddRecipeForm } from './components/AddRecipeForm';
+import { RecipeDetails } from './components/RecipeDetails';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <header>
-        <h1>Recipe Sharing Application</h1>
+        <h1>
+          <Link to="/">Recipe Sharing App</Link>
+        </h1>
       </header>
+
       <main>
-        <div className="container">
-          <AddRecipeForm />
-          <RecipeList />
-        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <AddRecipeForm />
+                <RecipeList />
+              </>
+            }
+          />
+          <Route path="/recipes/:id" element={<RecipeDetails />} />
+        </Routes>
       </main>
     </div>
   );
