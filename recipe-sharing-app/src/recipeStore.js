@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
-   addRecipe: (newRecipe) =>
+  addRecipe: (newRecipe) =>
     set((state) => ({ recipes: [...state.recipes, newRecipe] })),
   updateRecipe: (id, updatedFields) =>
     set((state) => ({
@@ -10,7 +10,7 @@ export const useRecipeStore = create((set) => ({
         r.id === id ? { ...r, ...updatedFields } : r
       ),
     })),
-   deleteRecipe: (id) =>
+  deleteRecipe: (id) =>
     set((state) => ({ recipes: state.recipes.filter((r) => r.id !== id) })),
   setRecipes: (recipes) => set({ recipes }),
 }));
