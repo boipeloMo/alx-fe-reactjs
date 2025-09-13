@@ -11,7 +11,6 @@ function App() {
           <Link to="/">Recipe Sharing App</Link>
         </h1>
       </header>
-
       <main>
         <Routes>
           <Route
@@ -31,3 +30,4 @@ function App() {
 }
 
 export default App;
+
