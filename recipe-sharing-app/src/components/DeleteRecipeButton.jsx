@@ -5,10 +5,10 @@ export function DeleteRecipeButton({ id }) {
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
   const navigate = useNavigate();
 
-  function handleDelete() {
+  function handleClick() {
     deleteRecipe(id);
-    navigate('/'); // go back to list after deletion
+    navigate('/');
   }
 
-  return <button onClick={handleDelete}>Delete Recipe</button>;
+  return <button onClick={handleClick}>Delete Recipe</button>;
 }
