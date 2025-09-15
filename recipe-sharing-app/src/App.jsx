@@ -1,27 +1,35 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
-import RecipeList from './components/RecipeList';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import AddRecipeForm from './components/AddRecipeForm';
-import RecipeDetail from './components/RecipeDetail';
+import RecipeList from './components/RecipeList';
+import RecipeDetails from './components/RecipeDetails';
+import EditRecipeForm from './components/EditRecipeForm';
 
 function App() {
   return (
-    <Router>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/add">Add Recipe</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<RecipeList />} />
-        <Route path="/add" element={<AddRecipeForm />} />
-        <Route path="/recipe/:id" element={<RecipeDetailWrapper />} />
-      </Routes>
-    </Router>
-  );
-}
+    <BrowserRouter>
+      <header>
+        <h1><Link to="/">Recipe Sharing App</Link></h1>
+      </header>
 
-function RecipeDetailWrapper() {
-  const { id } = useParams();
-  return <RecipeDetail recipeId={Number(id)} />;
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <AddRecipeForm />
+              <RecipeList />
+            </main>
+          }
+        />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
+        <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
+        {/* 404 fallback */}
+        <Route path="*" element={<div data-testid="not-found-page">Page not found</div>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
