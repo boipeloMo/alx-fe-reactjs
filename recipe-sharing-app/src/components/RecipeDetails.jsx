@@ -11,16 +11,21 @@ const RecipeDetails = () => {
   );
 
   if (!recipe) {
-    return <div>Recipe not found</div>;
+    return <div data-testid="recipe-not-found">Recipe not found</div>;
   }
 
   return (
-    <div>
-      <h1>{recipe.title}</h1>
+    <div data-testid={`recipe-details-${id}`}>
+      <h2>{recipe.title}</h2>
       <p>{recipe.description}</p>
-      <Link to={`/recipes/${id}/edit`}>Edit</Link>
+
+      <Link to={`/recipes/${id}/edit`} data-testid={`edit-link-${id}`}>
+        Edit
+      </Link>
+      {' | '}
       <DeleteRecipeButton id={id} />
-      <Link to="/">Back</Link>
+      {' | '}
+      <Link to="/" data-testid="back-link">Back</Link>
     </div>
   );
 };
