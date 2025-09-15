@@ -25,8 +25,6 @@ function App() {
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
         <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
-        {/* 404 fallback */}
-        <Route path="*" element={<div data-testid="not-found-page">Page not found</div>} />
       </Routes>
     </BrowserRouter>
   );
