@@ -24,7 +24,7 @@ function App() {
           }
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
-        <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
+<Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
       </Routes>
     </BrowserRouter>
   );
