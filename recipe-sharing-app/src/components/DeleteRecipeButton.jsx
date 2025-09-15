@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecipeStore } from './recipeStore';
 
 const DeleteRecipeButton = ({ id }) => {
-  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+  const deleteRecipe = useRecipeStore((s) => s.deleteRecipe);
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -12,7 +12,11 @@ const DeleteRecipeButton = ({ id }) => {
     navigate('/');
   };
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+    <button onClick={handleDelete} data-testid={`delete-${id}`}>
+      Delete
+    </button>
+  );
 };
 
 export default DeleteRecipeButton;
