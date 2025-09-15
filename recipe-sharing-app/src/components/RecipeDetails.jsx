@@ -1,34 +1,25 @@
-// src/components/RecipeDetails.jsx
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useRecipeStore } from './recipeStore';
+import useRecipeStore from '../recipeStore';
 import DeleteRecipeButton from './DeleteRecipeButton';
+import EditRecipeForm from './EditRecipeForm';
 
 const RecipeDetails = () => {
   const { id } = useParams();
-  const recipe = useRecipeStore((state) =>
-    state.recipes.find((r) => String(r.id) === String(id))
+  const recipe = useRecipeStore(state =>
+    state.recipes.find(r => r.id === Number(id))
   );
 
-  if (!recipe) {
-    return <div data-testid="recipe-not-found">Recipe not found</div>;
-  }
+  if (!recipe) return <p>Recipe not found</p>;
 
   return (
-    <div data-testid={`recipe-details-${id}`}>
+    <div>
       <h2>{recipe.title}</h2>
       <p>{recipe.description}</p>
-
-      <Link to={`/recipes/${id}/edit`} data-testid={`edit-link-${id}`}>
-        Edit
-      </Link>
-      {' | '}
-      <DeleteRecipeButton id={id} />
-      {' | '}
-      <Link to="/" data-testid="back-link">Back</Link>
+      <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
+      <DeleteRecipeButton recipeId={recipe.id} />
     </div>
   );
 };
 
 export default RecipeDetails;
-
