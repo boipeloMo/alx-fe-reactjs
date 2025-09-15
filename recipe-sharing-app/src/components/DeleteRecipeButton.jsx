@@ -4,20 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { useRecipeStore } from './recipeStore';
 
 const DeleteRecipeButton = ({ id }) => {
-  const deleteRecipe = useRecipeStore((s) => s.deleteRecipe);
+  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    // delete and go back to list — keep it simple for automated tests
     deleteRecipe(id);
     navigate('/');
   };
 
-  return (
-    <button onClick={handleDelete} data-testid={`delete-${id}`}>
-      Delete
-    </button>
-  );
+  return <button onClick={handleDelete}>Delete</button>;
 };
 
 export default DeleteRecipeButton;
