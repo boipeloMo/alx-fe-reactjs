@@ -13,13 +13,13 @@ const EditRecipeForm = () => {
   const [title, setTitle] = useState(recipe ? recipe.title : '');
   const [description, setDescription] = useState(recipe ? recipe.description : '');
 
+  if (!recipe) return <p>Recipe not found</p>;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     updateRecipe({ id: Number(id), title, description });
     navigate(`/recipes/${id}`);
   };
-
-  if (!recipe) return <p>Recipe not found</p>;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -31,4 +31,3 @@ const EditRecipeForm = () => {
 };
 
 export default EditRecipeForm;
-
