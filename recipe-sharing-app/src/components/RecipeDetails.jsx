@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useRecipeStore from '../recipeStore';
 import DeleteRecipeButton from './DeleteRecipeButton';
-import EditRecipeForm from './EditRecipeForm';
 
 const RecipeDetails = () => {
   const { id } = useParams();
