@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import { useState } from 'react';
 import Search from './components/Search';
 import { fetchAdvancedUserData } from './services/githubService';
