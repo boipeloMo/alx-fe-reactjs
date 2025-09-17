@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Search from './components/Search';
 import { fetchUserData } from './services/githubService';
-import './App.css'; // Assuming you have a basic CSS file
+import './App.css'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -9,15 +9,21 @@ function App() {
   const [error, setError] = useState(null);
 
   const handleSearch = async (username) => {
+    // 1. Reset states before starting the search
     setLoading(true);
     setError(null);
     setUser(null);
+
     try {
+      // 2. Await the API call
       const userData = await fetchUserData(username);
+      // 3. Set the user data on success
       setUser(userData);
     } catch (err) {
+      // 4. Set an error message on failure
       setError('Looks like we can\'t find the user.');
     } finally {
+      // 5. Always stop the loading state
       setLoading(false);
     }
   };
@@ -27,6 +33,7 @@ function App() {
       <h1>GitHub User Search</h1>
       <Search onSearch={handleSearch} />
       
+      {/* 6. The conditional rendering logic is crucial */}
       {loading && <p>Loading...</p>}
       
       {error && <p className="error">{error}</p>}
