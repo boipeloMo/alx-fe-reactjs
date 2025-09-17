@@ -1,22 +1,38 @@
-import React from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import Home from './components/Home'
-import UserDetails from './components/UserDetails'
+import { useState } from 'react';
+import { getGitHubUser } from './services/githubService';
+import SearchForm from './components/SearchForm';
+import UserProfile from './components/UserProfile';
+import './App.css';
 
-export default function App() {
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSearch = async (username) => {
+    setLoading(true);
+    setError(null);
+    setUser(null);
+
+    try {
+      const userData = await getGitHubUser(username);
+      setUser(userData);
+    } catch (err) {
+      setError('Could not find that user. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
-      <header style={{padding:'1rem', borderBottom:'1px solid #eee'}}>
-        <h1>GitHub User Search</h1>
-        <nav><Link to="/">Home</Link></nav>
-      </header>
-
-      <main style={{padding:'1rem'}}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/user/:username" element={<UserDetails />} />
-        </Routes>
-      </main>
+    <div className="App">
+      <h1>GitHub User Search</h1>
+      <SearchForm onSearch={handleSearch} />
+      {loading && <p>Loading...</p>}
+      {error && <p className="error">{error}</p>}
+      <UserProfile user={user} />
     </div>
-  )
+  );
 }
+
+export default App;
