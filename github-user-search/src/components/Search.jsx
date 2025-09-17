@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 
-export default function Search({ onSearch }) {
-  const [q, setQ] = useState('')
+const Search = ({ onSearch }) => {
+  const [username, setUsername] = useState('');
 
-  const submit = (e) => {
-    e.preventDefault()
-    if (!q.trim()) return
-    onSearch(q.trim())
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username.trim()) {
+      onSearch(username);
+    }
+  };
 
   return (
-    <form onSubmit={submit} style={{marginBottom:'1rem'}}>
+    <form onSubmit={handleSubmit}>
       <input
-        data-testid="search-input"
-        value={q}
-        onChange={e=>setQ(e.target.value)}
-        placeholder="Search GitHub users"
-        aria-label="search-input"
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter GitHub username..."
       />
-      <button type="submit" data-testid="search-button">Search</button>
+      <button type="submit">Search</button>
     </form>
-  )
-}
+  );
+};
+
+export default Search;
