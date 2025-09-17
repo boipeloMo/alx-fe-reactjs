@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { getGitHubUser } from './services/githubService';
-import SearchForm from './components/SearchForm';
-import UserProfile from './components/UserProfile';
-import './App.css';
+import Search from './components/Search';
+import { fetchUserData } from './services/githubService';
+import './App.css'; // Assuming you have a basic CSS file
 
 function App() {
   const [user, setUser] = useState(null);
@@ -13,12 +12,11 @@ function App() {
     setLoading(true);
     setError(null);
     setUser(null);
-
     try {
-      const userData = await getGitHubUser(username);
+      const userData = await fetchUserData(username);
       setUser(userData);
     } catch (err) {
-      setError('Could not find that user. Please try again.');
+      setError('Looks like we can\'t find the user.');
     } finally {
       setLoading(false);
     }
@@ -27,10 +25,22 @@ function App() {
   return (
     <div className="App">
       <h1>GitHub User Search</h1>
-      <SearchForm onSearch={handleSearch} />
+      <Search onSearch={handleSearch} />
+      
       {loading && <p>Loading...</p>}
+      
       {error && <p className="error">{error}</p>}
-      <UserProfile user={user} />
+      
+      {user && (
+        <div className="user-profile">
+          <img src={user.avatar_url} alt={`${user.login}'s avatar`} width="100" />
+          <h2>{user.name || user.login}</h2>
+          <p>{user.bio || 'No bio provided.'}</p>
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+            View Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
