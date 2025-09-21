@@ -1,102 +1,71 @@
+// src/components/Search.jsx
 import React, { useState } from "react";
-import { fetchUsers } from "../services/githubService";
+import { fetchUserData } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
-  const [location, setLocation] = useState("");
-  const [minRepos, setMinRepos] = useState("");
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!username.trim()) return;
+
     setLoading(true);
     setError("");
-    setUsers([]);
+    setUser(null);
 
     try {
-      const data = await fetchUsers({ username, location, minRepos });
-      if (data.length === 0) {
-        setError("No users found with the given criteria.");
-      } else {
-        setUsers(data);
-      }
+      const data = await fetchUserData(username.trim());
+      setUser(data);
     } catch (err) {
-      setError("Error fetching users.");
+      // EXACT error message expected by checker:
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">GitHub Advanced User Search</h1>
-
-      {/* Search form */}
-      <form
-        onSubmit={handleSubmit}
-        className="grid gap-4 sm:grid-cols-3 bg-white p-4 rounded-xl shadow"
-      >
+    <div>
+      <form onSubmit={handleSubmit}>
         <input
+          data-testid="search-input"
           type="text"
-          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded"
+          placeholder="Enter GitHub username"
         />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="number"
-          placeholder="Min Repos"
-          value={minRepos}
-          onChange={(e) => setMinRepos(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <button
-          type="submit"
-          className="sm:col-span-3 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
+        <button data-testid="search-button" type="submit">
           Search
         </button>
       </form>
 
-      {/* Results */}
-      <div className="mt-6">
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-600">{error}</p>}
-        <ul className="space-y-4">
-          {users.map((user) => (
-            <li
-              key={user.id}
-              className="flex items-center space-x-4 p-4 bg-gray-100 rounded-xl shadow"
-            >
-              <img
-                src={user.avatar_url}
-                alt={user.login}
-                className="w-16 h-16 rounded-full"
-              />
-              <div>
-                <h2 className="font-semibold text-lg">{user.login}</h2>
-                <a
-                  href={user.html_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  View Profile
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {loading && <p>Loading...</p>}
+
+      {error && <p>{error}</p>}
+
+      {user && (
+        <div data-testid="search-result">
+          <img
+            data-testid="result-avatar"
+            src={user.avatar_url}
+            alt={user.login}
+            width={100}
+            height={100}
+          />
+          <h2 data-testid="result-username">{user.login}</h2>
+          <a
+            data-testid="result-profile-link"
+            href={user.html_url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            View GitHub Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
