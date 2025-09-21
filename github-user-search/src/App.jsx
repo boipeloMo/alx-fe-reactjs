@@ -4,8 +4,7 @@ import Search from "./components/Search";
 
 export default function App() {
   return (
-    <div style={{ padding: 16 }}>
-      <h1>GitHub User Search</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
       <Search />
     </div>
   );
