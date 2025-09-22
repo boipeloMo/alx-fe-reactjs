@@ -1,12 +1,9 @@
-// src/App.jsx
+# overwrite App.jsx with a minimal file that renders the component
+cat > src/App.jsx << 'EOF'
 import React from 'react';
+import UserProfile from './components/UserProfile';
 
 export default function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <h1 className="text-4xl font-extrabold text-blue-600">
-        Tailwind CSS is working! 🎉
-      </h1>
-    </div>
-  );
+  return <UserProfile />;
 }
+EOF
