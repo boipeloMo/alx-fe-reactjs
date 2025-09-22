@@ -3,4 +3,9 @@
   "build": "vite build",
   "preview": "vite preview",
   "start": "vite"
+"devDependencies": {
+  "tailwindcss": "^3.4.0",
+  "postcss": "^8.4.0",
+  "autoprefixer": "^10.4.0"
 }
+
