@@ -6,10 +6,8 @@ function AddRecipeForm() {
   const [steps, setSteps] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validation
+  // ✅ Add this validate function
+  const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim() || ingredients.split(",").length < 2)
@@ -18,23 +16,29 @@ function AddRecipeForm() {
     if (!steps.trim()) newErrors.steps = "Steps are required";
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    if (Object.keys(newErrors).length === 0) {
-      const newRecipe = {
-        id: Date.now(),
-        title,
-        ingredients: ingredients.split(",").map((i) => i.trim()),
-        steps: steps.split("\n").map((s) => s.trim()),
-        image: "https://via.placeholder.com/150",
-      };
-      console.log("New Recipe Submitted:", newRecipe);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      // Reset form
-      setTitle("");
-      setIngredients("");
-      setSteps("");
-      alert("Recipe submitted! (Check console for data)");
-    }
+    if (!validate()) return;
+
+    const newRecipe = {
+      id: Date.now(),
+      title,
+      ingredients: ingredients.split(",").map((i) => i.trim()),
+      steps: steps.split("\n").map((s) => s.trim()),
+      image: "https://via.placeholder.com/150",
+    };
+
+    console.log("New Recipe Submitted:", newRecipe);
+
+    // Reset form
+    setTitle("");
+    setIngredients("");
+    setSteps("");
+    alert("Recipe submitted! (Check console for data)");
   };
 
   return (
@@ -103,3 +107,4 @@ function AddRecipeForm() {
 }
 
 export default AddRecipeForm;
+
