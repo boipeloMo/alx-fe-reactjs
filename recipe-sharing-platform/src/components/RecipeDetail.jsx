@@ -39,15 +39,15 @@ function RecipeDetail() {
         </ul>
       </section>
 
-      <section>
+     <section>
   <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
   <ol className="list-decimal list-inside text-gray-700">
-    {/* Example steps */}
-    <li>Step 1: Do something.</li>
-    <li>Step 2: Do something else.</li>
-    <li>Step 3: Finish up.</li>
+    {recipe.instructions.map((step, index) => (
+      <li key={index}>{step}</li>
+    ))}
   </ol>
 </section>
+
 
     </div>
   );
