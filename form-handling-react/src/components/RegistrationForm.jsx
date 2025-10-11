@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const RegistrationForm = () => {
-  // ✅ Individual states for inputs
+ 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ Errors object (checker expects setErrors)
+  
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
