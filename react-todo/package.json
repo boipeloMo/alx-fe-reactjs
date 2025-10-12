@@ -25,10 +25,13 @@
     "@babel/preset-react": "^7.22.15"
   },
   "jest": {
-    "testEnvironment": "jsdom",
-    "moduleFileExtensions": ["js", "jsx"],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+  "testEnvironment": "jsdom",
+  "moduleFileExtensions": ["js", "jsx"],
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  }
+}
+
     }
   }
 }
