@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AddTodoForm = ({ addTodo }) => {
-  const [task, setTask] = useState('');
+  const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (task.trim()) {
-      addTodo(task.trim());
-      setTask(''); // Clear the input after submission
-    }
+    if (!text.trim()) return;
+    addTodo(text);
+    setText("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="New Todo Task"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-        data-testid="todo-input" // Crucial for testing
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        data-testid="new-todo-input"
       />
-      <button type="submit" data-testid="add-button">Add Todo</button>
+      <button type="submit" data-testid="add-todo-button">
+        Add
+      </button>
     </form>
   );
 };
