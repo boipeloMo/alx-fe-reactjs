@@ -1,24 +1,39 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-// Fetch function
+// Function to fetch posts
 const fetchPosts = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  if (!res.ok) throw new Error("Failed to fetch posts");
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
   return res.json();
 };
 
 const PostsComponent = () => {
-  const { data, error, isLoading, isError, refetch } = useQuery(
-    "posts", // Query key (used for caching)
-    fetchPosts
-  );
+ 
+  const {
+    data,
+    error,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery("posts", fetchPosts, {
+    cacheTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    staleTime: 1000 * 30, // Consider data fresh for 30 seconds
+    refetchOnWindowFocus: false, // Prevent automatic refetch when switching tabs
+    keepPreviousData: true, // Keep old data during refetch for smooth UI
+  });
+
 
   if (isLoading) return <p>Loading posts...</p>;
+
+  
   if (isError) return <p>Error: {error.message}</p>;
 
+
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-4">
+    <div className="max-w-3xl mx-auto mt-10 p-6">
       <h2 className="text-2xl font-bold mb-4">Posts from JSONPlaceholder</h2>
       <button
         onClick={() => refetch()}
