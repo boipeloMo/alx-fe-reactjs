@@ -1,33 +1,24 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
-// The initial demo tasks are:
-// 1. 'Buy groceries' (not completed)
-// 2. 'Finish React project' (completed)
-// 3. 'Go for a run' (not completed)
-
 describe('TodoList Component', () => {
+
   // Test 1: Initial Render Test
-  it('renders correctly and displays initial todos', () => {
+  it('renders correctly and displays initial todos with correct completion status', () => {
     render(<TodoList />);
     
     // Check if the component title renders
     expect(screen.getByText(/My Todo List/i)).toBeInTheDocument();
 
-    // Check if the three initial tasks are rendered
-    expect(screen.getByText('Buy groceries')).toBeInTheDocument();
-    expect(screen.getByText('Finish React project')).toBeInTheDocument();
-    expect(screen.getByText('Go for a run')).toBeInTheDocument();
+    // Check if initial tasks are rendered
+    const task1 = screen.getByText('Buy groceries');
+    const task2 = screen.getByText('Finish React project');
     
-    // Check for the initial completion status (strikethrough on the completed item)
-    const completedItem = screen.getByText('Finish React project');
-    // Using inline style check for demonstration, though testing user experience is preferred
-    expect(completedItem).toHaveStyle('text-decoration: line-through');
-
-    const uncompletedItem = screen.getByText('Buy groceries');
-    expect(uncompletedItem).toHaveStyle('text-decoration: none');
+    // Check initial completion status (strikethrough on the completed item)
+    expect(task1).toHaveStyle('text-decoration: none'); // Uncompleted
+    expect(task2).toHaveStyle('text-decoration: line-through'); // Completed
   });
 
   // Test 2: Test Adding Todos
@@ -38,17 +29,14 @@ describe('TodoList Component', () => {
     const addButton = screen.getByTestId('add-button');
     const newTask = 'Walk the dog';
 
-    // Simulate typing into the input
+    // 1. Simulate typing into the input
     fireEvent.change(input, { target: { value: newTask } });
     
-    // Simulate clicking the Add button (form submission)
+    // 2. Simulate clicking the Add button
     fireEvent.click(addButton);
 
-    // Verify the new task is now in the document
-    const addedTodo = screen.getByText(newTask);
-    expect(addedTodo).toBeInTheDocument();
-    
-    // Verify the input field is cleared
+    // 3. Verify the new task is rendered and input is cleared
+    expect(screen.getByText(newTask)).toBeInTheDocument();
     expect(input).toHaveValue('');
   });
 
@@ -56,21 +44,21 @@ describe('TodoList Component', () => {
   it('allows a user to toggle a todo item completion status', () => {
     render(<TodoList />);
     
-    const taskToToggle = screen.getByText('Buy groceries');
-    
-    // 1. Check initial state: Should NOT be completed (no line-through)
+    const taskToToggle = screen.getByText('Buy groceries'); // Initial ID 1
+
+    // 1. Check initial state: Should NOT be completed
     expect(taskToToggle).toHaveStyle('text-decoration: none');
 
-    // 2. Simulate clicking the task to toggle
+    // 2. Simulate clicking the task to toggle it ON
     fireEvent.click(taskToToggle);
 
     // 3. Check new state: Should now be completed (line-through)
     expect(taskToToggle).toHaveStyle('text-decoration: line-through');
 
-    // 4. Simulate clicking again to untoggle
+    // 4. Simulate clicking again to toggle it OFF
     fireEvent.click(taskToToggle);
 
-    // 5. Check final state: Should be uncompleted again (no line-through)
+    // 5. Check final state: Should be uncompleted again
     expect(taskToToggle).toHaveStyle('text-decoration: none');
   });
 
@@ -78,24 +66,21 @@ describe('TodoList Component', () => {
   it('allows a user to delete a todo item', () => {
     render(<TodoList />);
 
-    const taskToDelete = 'Go for a run';
+    const taskToDeleteText = 'Go for a run';
     
     // 1. Verify the item is initially present
-    const todoItem = screen.getByText(taskToDelete);
-    expect(todoItem).toBeInTheDocument();
+    expect(screen.getByText(taskToDeleteText)).toBeInTheDocument();
 
-    // The delete button is within the list item containing the task text.
-    // We use `within` to find the button associated with the specific task.
-    // The component structure uses a specific data-testid on the button.
-    const deleteButton = screen.getByTestId('delete-button-3'); // 'Go for a run' is ID 3
+    // 2. Find the delete button for the known ID 3 (Go for a run)
+    const deleteButton = screen.getByTestId('delete-button-3');
 
-    // 2. Simulate clicking the Delete button
+    // 3. Simulate clicking the Delete button
     fireEvent.click(deleteButton);
 
-    // 3. Verify the item is no longer in the document
-    expect(screen.queryByText(taskToDelete)).not.toBeInTheDocument();
+    // 4. Verify the item is no longer in the document using queryByText
+    expect(screen.queryByText(taskToDeleteText)).not.toBeInTheDocument();
     
-    // Verify the other initial items are still present
+    // Ensure another item is still present (sanity check)
     expect(screen.getByText('Buy groceries')).toBeInTheDocument();
   });
 });
