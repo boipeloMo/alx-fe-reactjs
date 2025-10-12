@@ -63,11 +63,16 @@ const TodoList = () => {
           <li
             key={todo.id}
             // Style for toggling completion
-            style={{ textDecoration: todo.completed ? 'line-through' : 'none', cursor: 'pointer' }}
+            style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}
           >
-            {/* Click to toggle completion */}
+            {/* Click on the task text to toggle completion */}
             <span
               onClick={() => toggleTodo(todo.id)}
+              style={{ 
+                textDecoration: todo.completed ? 'line-through' : 'none', 
+                cursor: 'pointer',
+                marginRight: '10px'
+              }}
               data-testid={`todo-item-task-${todo.id}`}
             >
               {todo.task}
@@ -76,8 +81,7 @@ const TodoList = () => {
             {/* Button to delete todo */}
             <button
               onClick={() => deleteTodo(todo.id)}
-              style={{ marginLeft: '10px' }}
-              data-testid={`delete-button-${todo.id}`}
+              data-testid={`delete-button-${todo.id}`} // Crucial for testing delete
             >
               Delete
             </button>
