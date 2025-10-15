@@ -1,5 +1,5 @@
+// src/components/MainContent.jsx
 import React from "react";
-import UserProfile from "./UserProfile";
 
 function MainContent() {
   return (
@@ -7,24 +7,18 @@ function MainContent() {
       style={{
         padding: "20px",
         backgroundColor: "#eef2f3",
-        minHeight: "300px",
+        minHeight: "200px",
+        textAlign: "center",
       }}
     >
-      <UserProfile
-        name="Alice Johnson"
-        age={28}
-        bio="Loves traveling and exploring new cultures."
-      />
-      <UserProfile
-        name="Thabo Mokoena"
-        age={32}
-        bio="Food enthusiast and mountain hiker."
-      />
-      <UserProfile
-        name="Maria Gonzalez"
-        age={25}
-        bio="Urban explorer who enjoys photography."
-      />
+      <p
+        style={{
+          fontSize: "18px",
+          color: "#333",
+        }}
+      >
+        I love to visit New York, Paris, and Tokyo.
+      </p>
     </main>
   );
 }
